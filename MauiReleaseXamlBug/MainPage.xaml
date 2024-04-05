@@ -16,7 +16,7 @@
             <Button Text="Open page" Clicked="Button_Clicked" />
 
             <Button x:Name="ShowErrorButton" Text="Show error" Clicked="ShowErrorButton_Clicked" />
-            <Label x:Name="ErrorLabel" />
+            <Entry x:Name="ErrorEntry" />
         </VerticalStackLayout>
     </ScrollView>
 

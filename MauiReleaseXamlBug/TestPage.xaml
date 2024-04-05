@@ -50,10 +50,7 @@
                              CornerRadius="0"
                              Padding="4"
                              BackgroundColor="Black" 
-                             VerticalOptions="Start" 
-                             Command="{Binding Path=BindingContext.RemoveImageCommand, Source={x:RelativeSource AncestorType={x:Type FlexLayout}}}"
-                             CommandParameter="{Binding .}"
-                             HorizontalOptions="End" />
+                             VerticalOptions="Start" HorizontalOptions="End" />
                             </Grid>
                         </Border>
                     </DataTemplate>

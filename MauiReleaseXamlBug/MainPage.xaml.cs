@@ -24,7 +24,7 @@
 
         private void ShowErrorButton_Clicked(object sender, EventArgs e)
         {
-            ErrorLabel.Text = App.ExceptionContent;
+            ErrorEntry.Text = App.ExceptionContent;
         }
     }
 
