@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:MauiReleaseXamlBug"
+             x:Class="MauiReleaseXamlBug.TestPage"
+             x:DataType="local:TestViewModel"
+             Title="TestPage">
+    <ScrollView>
+        <VerticalStackLayout Padding="20">
+            <Label Margin="0,20,0,0" Style="{StaticResource Title}" Text="Limits" />
+            <Grid ColumnDefinitions="Auto, *" RowDefinitions="*,*,*,*,*,*,*,*" HorizontalOptions="Center">
+                <Label FontSize="12" Grid.Row="0" HorizontalTextAlignment="End" Grid.Column="0" Text="LimitMinPictures" Margin="0,0,5,0" />
+                <Label FontSize="12" Grid.Row="0" Grid.Column="1" Text="{Binding MinPictures}" />
+                <Label FontSize="12" Grid.Row="1" HorizontalTextAlignment="End" Grid.Column="0" Text="LimitMaxPictures" Margin="0,0,5,0" />
+                <Label FontSize="12" Grid.Row="1" Grid.Column="1" Text="{Binding MaxPictures}" />
+                <Label FontSize="12" Grid.Row="2" HorizontalTextAlignment="End" Grid.Column="0" Text="LimitMaxFileSizeBytes" Margin="0,0,5,0" />
+                <Label FontSize="12" Grid.Row="2" Grid.Column="1" Text="{Binding MaxFileSizeBytes}" />
+                <Label FontSize="12" Grid.Row="3" HorizontalTextAlignment="End" Grid.Column="0" Text="LimitMinPictureWidth" Margin="0,0,5,0" />
+                <Label FontSize="12" Grid.Row="3" Grid.Column="1" Text="{Binding MinWidthPx}" />
+                <Label FontSize="12" Grid.Row="4" HorizontalTextAlignment="End" Grid.Column="0" Text="LimitMinPictureHeight" Margin="0,0,5,0" />
+                <Label FontSize="12" Grid.Row="4" Grid.Column="1" Text="{Binding MinHeightPx}" />
+                <Label FontSize="12" Grid.Row="5" HorizontalTextAlignment="End" Grid.Column="0" Text="LimitMinWidthHeightRatio" Margin="0,0,5,0" />
+                <Label FontSize="12" Grid.Row="5" Grid.Column="1" Text="{Binding MinWidthHeightRatio}" />
+                <Label FontSize="12" Grid.Row="6" HorizontalTextAlignment="End" Grid.Column="0" Text="CurrentNumberOfPictures" Margin="0,0,5,0" />
+                <Label FontSize="12" Grid.Row="6" Grid.Column="1" Text="{Binding CurrentImages}" />
+                <Label FontSize="12" Grid.Row="7" HorizontalTextAlignment="End" Grid.Column="0" Text="RemainingPicturesToUpload" Margin="0,0,5,0" />
+                <Label FontSize="12" Grid.Row="7" Grid.Column="1" Text="{Binding RemainingImages}" />
+            </Grid>
+
+            <Label Margin="0,20,0,0" Style="{StaticResource Title}" Text="NewImagesTitle" />
+
+            <FlexLayout JustifyContent="Center" Wrap="Wrap" Direction="Row" BindableLayout.ItemsSource="{Binding Images}" Margin="0,15,0,0">
+                <BindableLayout.EmptyViewTemplate>
+                    <DataTemplate>
+                        <Image HeightRequest="80" Source="dotnet_bot.png" HorizontalOptions="Center" />
+                    </DataTemplate>
+                </BindableLayout.EmptyViewTemplate>
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate x:DataType="x:String">
+                        <Border WidthRequest="120" HeightRequest="80">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="3"></RoundRectangle>
+                            </Border.StrokeShape>
+                            <Grid>
+                                <Image WidthRequest="120" HeightRequest="80" Source="{Binding .}" Aspect="AspectFit" />
+                                <ImageButton Source="x_glyph_white.png" 
+                             Margin="0"
+                             WidthRequest="40"
+                             HeightRequest="40"
+                             CornerRadius="0"
+                             Padding="4"
+                             BackgroundColor="Black" 
+                             VerticalOptions="Start" 
+                             Command="{Binding Path=BindingContext.RemoveImageCommand, Source={x:RelativeSource AncestorType={x:Type FlexLayout}}}"
+                             CommandParameter="{Binding .}"
+                             HorizontalOptions="End" />
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </FlexLayout>
+
+            <HorizontalStackLayout Spacing="10" HorizontalOptions="Center" Margin="0,20,0,0">
+                <Button Style="{StaticResource BlackButton}" Command="{Binding OpenImagePickerDialogCommand}" Text="AddPhoto" />
+
+                <Border Margin="10,0,0,0"
+                    BackgroundColor="Black"
+                    Style="{StaticResource BlackButton}">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="22" />
+                    </Border.StrokeShape>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding CapturePhotoCommand}" />
+                    </Border.GestureRecognizers>
+                    <HorizontalStackLayout VerticalOptions="Center" Spacing="10" HorizontalOptions="Center">
+                        <Image Source="camera.png" VerticalOptions="Center" HeightRequest="15"/>
+                        <Label TextColor="White" FontSize="16" VerticalOptions="Center" Text="TakePhoto" />
+                    </HorizontalStackLayout>
+                </Border>
+            </HorizontalStackLayout>
+            <Button Style="{StaticResource PrimaryButton}" Text="Submit" Command="{Binding SubmitCommand}" Margin="0,20,0,0" HorizontalOptions="Center" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
